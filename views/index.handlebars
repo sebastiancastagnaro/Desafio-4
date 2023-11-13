@@ -1,0 +1,25 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <ul id="productList"></ul>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:3000');
+
+        ws.onmessage = function (event) {
+            const productList = document.getElementById('productList');
+            const productos = JSON.parse(event.data);
+            productos.forEach(producto => {
+                const listItem = document.createElement('li');
+                listItem.textContent = producto.nombre;
+                productList.appendChild(listItem);
+            });
+        };
+    </script>
+</body>
+</html>
